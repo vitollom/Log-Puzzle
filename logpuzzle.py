@@ -26,8 +26,21 @@ def read_urls(filename):
     extracting the hostname from the filename itself, sorting
     alphabetically in increasing order, and screening out duplicates.
     """
-    # +++your code here+++
-    pass
+    img_urls = []
+    prefix = filename.split("_")[-1]
+    pattern = re.compile(r"\/\S*\/puzzle\/\S*")
+
+    with open(filename, "r") as f:
+        contents = f.read()
+        all_urls = pattern.finditer(contents)
+        for match in all_urls:
+            url = "https://" + prefix + match.group(0)
+            if url not in img_urls:
+                img_urls.append(url)
+        f.close()
+
+    img_urls.sort(key=lambda img: img.split("-")[-1])
+    return img_urls
 
 
 def download_images(img_urls, dest_dir):
@@ -38,7 +51,35 @@ def download_images(img_urls, dest_dir):
     to show each local image file.
     Creates the directory if necessary.
     """
-    # +++your code here+++
+    if dest_dir not in os.listdir():
+        os.makedirs(dest_dir)
+
+    os.chdir(dest_dir)
+
+    for url in img_urls:
+        index = img_urls.index(url)
+        urllib.request.urlretrieve(url, filename=f"img{index}.jpg")
+        print(f"Retrieving {url}...")
+    print("Complete")
+
+    img_tag_list = []
+    html_tag_list = ["<html>\n", "<body>\n"]
+
+    for file in os.listdir():
+        if file.endswith(".jpg"):
+            img_tag_list.append(f"<img src={str(file)}>")
+
+    def sort_helper(tag):
+        tag_split = tag.split(".")[0]
+        return int(tag_split.split("g")[2])
+
+    img_tag_list.sort(key=sort_helper)
+    img_tag_list.extend(["</body>\n", "</html>\n"])
+    html_tag_list.extend(img_tag_list)
+
+    with open("index.html", "w") as f:
+        f.writelines(img_tag_list)
+        f.close()
     pass
 
 
