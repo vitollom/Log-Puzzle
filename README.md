@@ -34,7 +34,7 @@ OR
 python logpuzzle.py --todir <name-of-dir> place_code.google.com
 ```
 
-Where <name-of-dir> is the name of the directory you'd like to save the image files and HTML document, nested in this project folder.
+Where "<name-of-dir>" is the name of the directory you'd like to save the image files and HTML document, nested in this project folder.
   
 Open the HTML file in your chosen browser and it should display a coeherent image.
 
