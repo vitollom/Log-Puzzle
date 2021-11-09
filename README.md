@@ -1,6 +1,6 @@
 # Log Puzzle
 
-A Python program designed to scan log files for lines containing urls to puzzle pieces. Supplying a directory to download those images to also creates and html file that when opened in the brower shows the full image.
+A Python program designed to scan log files for lines containing urls to puzzle pieces. Supplying a directory to download those images to also creates and html file that when opened in the browser shows the full image.
 
 ## Getting Started
 
